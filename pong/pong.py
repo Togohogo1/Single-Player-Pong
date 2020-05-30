@@ -10,7 +10,6 @@ import pygame
 import random
 import time
 
-#initializes the game
 pygame.init()
 
 #dimentions of the mindows, measured in pixles (constants)
