@@ -3,9 +3,6 @@ major comment cutting needed
 major fixups required
 '''
 
-
-import ctypes
-import pathlib
 import pygame
 import random
 import time
