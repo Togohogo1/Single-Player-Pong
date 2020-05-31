@@ -10,7 +10,7 @@ import time
 
 pygame.init()
 
-# Window dimentions
+# Window dimensions
 DISPLAY_WIDTH = 800
 DISPLAY_HEIGHT = 600
 
@@ -146,11 +146,10 @@ def gameloop_paddle():
     BALL_COLOUR = (255, 255, 255)
     PADDLE_COLOUR = (255, 255, 255)
 
-    # variable for score
     score = 0
-    
-    # Variable to gradually increase the R value in the RBG values of the paddle
-    colour_incriment = 0
+
+    # THe paddle gets more red the higher the score
+    colour_increment = 0
 
     PADDLE_HEIGHT = 150
     PADDLE_WIDTH = 2
@@ -230,15 +229,15 @@ def gameloop_paddle():
             else:
                 ballSpeedY = random.randint(1, 5) * -1
 
-            colour_incriment += 16
-            colour_incriment = min(colour_incriment, 255)
+            colour_increment += 16
+            colour_increment = min(colour_increment, 255)
 
             score += 1
 
             # Simulating paddle shrinking, getting more red, and ball fading
             PADDLE_HEIGHT -= 10
-            PADDLE_COLOUR = (255, 255 - colour_incriment, 255 - colour_incriment)
-            BALL_COLOUR = (255 - colour_incriment, 255 - colour_incriment, 255 - colour_incriment)
+            PADDLE_COLOUR = (255, 255 - colour_increment, 255 - colour_increment)
+            BALL_COLOUR = (255 - colour_increment, 255 - colour_increment, 255 - colour_increment)
 
         if score == 15 and x_location_ball < 700:
             messageDisplay('YOU WON', 300)
