@@ -2,11 +2,11 @@
 fix function order
 polish comments?
 major fixups required
+fixup text display functions
 '''
 
 import pygame
 import random
-import time
 
 pygame.init()
 
@@ -21,9 +21,6 @@ PADDLE_COLOUR = (255, 255, 255)
 BACKROUND_MAINMENU_COLOUR = (0, 100, 100)
 GREEN = (0, 255, 0)
 BLACK = (0, 0, 0)
-
-# Score (how many times you hit the paddle)
-score = 0
 
 # Paddle dimensions
 PADDLE_HEIGHT = 150
@@ -47,16 +44,24 @@ def Balls_Hit(score):
     gameDisplay.blit(text, (290, 0))
 
 
-def textObjects(text, font):
-    textSurface = font.render(text, True, WHITE)
-    return textSurface, textSurface.get_rect()
-
-
 # Text for the main menu
 def text_format(message, textFont, textSize, textColor):
     newFont = pygame.font.Font(textFont, textSize)
     newText = newFont.render(message, 0, textColor)
     return newText
+
+
+# Wait for any key pressed when game ends
+def end_wait_enter():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    return
 
 
 # Main game function
@@ -69,6 +74,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+                quit()
 
             # Detects when a key is pressed down
             if event.type == pygame.KEYDOWN:
@@ -82,6 +88,7 @@ def main():
                         gameloop_paddle()
                     if selected == "quit":
                         pygame.quit()
+                        quit()
 
         # Main menu user interface
         gameDisplay.fill(BACKROUND_MAINMENU_COLOUR)
@@ -106,27 +113,25 @@ def main():
         quit_rect = text_quit.get_rect()
 
         # Sets the coordinates of the text
-        gameDisplay.blit(title, (DISPLAY_WIDTH/2 - (title_rect[2]/2), 80))
-        gameDisplay.blit(win_rules, (415 - (title_rect[2]/2), 200))
-        gameDisplay.blit(general_rules, (380 - (title_rect[2]/2), 230))
-        gameDisplay.blit(text_start, (280 - (start_rect[2]/2), 300))
-        gameDisplay.blit(text_quit, (530 - (quit_rect[2]/2), 300))
+        gameDisplay.blit(title, (DISPLAY_WIDTH//2 - (title_rect[2]//2), 80))
+        gameDisplay.blit(win_rules, (415 - (title_rect[2]//2), 200))
+        gameDisplay.blit(general_rules, (380 - (title_rect[2]//2), 230))
+        gameDisplay.blit(text_start, (280 - (start_rect[2]//2), 300))
+        gameDisplay.blit(text_quit, (530 - (quit_rect[2]//2), 300))
 
         # Updates the screen display and FPS
         pygame.display.update()
         clock.tick(60)
 
 
-# Function for displaying text
-def messageDisplay(text, y_position):
-    largeText = pygame.font.Font(('freesansbold.ttf'), 75)
-    textSurf, textRect = textObjects(text, largeText)
-    textRect.center = ((DISPLAY_WIDTH/2), (y_position))
+# Function for displaying endgame popup text
+def messageDisplay(text, y_position, size):
+    largeText = pygame.font.Font(('freesansbold.ttf'), size)
+    textSurf = largeText.render(text, True, WHITE)
+    textRect = textSurf.get_rect()
+    textRect.center = ((DISPLAY_WIDTH//2), (y_position))
     gameDisplay.blit(textSurf, textRect)
-
     pygame.display.update()
-    time.sleep(5)
-    main()
 
 
 # Defining paddle properties
@@ -174,6 +179,7 @@ def gameloop_paddle():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+                quit()
 
             # Allows user to move paddle up and down
             if event.type == pygame.KEYDOWN:
@@ -218,8 +224,11 @@ def gameloop_paddle():
 
         # Simulating ball hitting right edge
         if x_location_ball > DISPLAY_WIDTH:
-            messageDisplay('GAME OVER', 300)
-
+            messageDisplay('GAME OVER', 262, 75)
+            messageDisplay('Press Enter to Continue', 337, 20)
+            end_wait_enter()
+            main()
+            
         # Simulating ball hitting the paddle
         if x_location_ball + BALL_WIDTH >= x_location_paddle and x_location_ball <= x_location_paddle and y_location_ball < y_location_paddle + PADDLE_HEIGHT and y_location_ball + BALL_HEIGHT > y_location_paddle and ballSpeedX > 0:
             ballSpeedX = (ballSpeedX + random.randint(1, 2)) * -1
@@ -240,4 +249,10 @@ def gameloop_paddle():
             BALL_COLOUR = (255 - colour_increment, 255 - colour_increment, 255 - colour_increment)
 
         if score == 15 and x_location_ball < 700:
-            messageDisplay('YOU WON', 300)
+            messageDisplay('YOU WON', 262, 75)
+            messageDisplay('Press Enter to Continue', 337, 20)
+            end_wait_enter()
+            main()
+
+
+main()
