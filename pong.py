@@ -1,12 +1,3 @@
-'''
-fix function order
-polish comments?
-major fixups required
-fixup text display functions
-better collision detection
-deal with globals
-'''
-
 import sys
 import random
 import pygame
