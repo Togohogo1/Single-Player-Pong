@@ -5,8 +5,9 @@ major fixups required
 fixup text display functions
 '''
 
-import pygame
+import sys
 import random
+import pygame
 
 pygame.init()
 
@@ -57,7 +58,7 @@ def end_wait_enter():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                quit()
+                sys.exit()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
@@ -74,7 +75,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                quit()
+                sys.exit()
 
             # Detects when a key is pressed down
             if event.type == pygame.KEYDOWN:
@@ -88,7 +89,7 @@ def main():
                         gameloop_paddle()
                     if selected == "quit":
                         pygame.quit()
-                        quit()
+                        sys.exit()
 
         # Main menu user interface
         gameDisplay.fill(BACKROUND_MAINMENU_COLOUR)
@@ -179,7 +180,7 @@ def gameloop_paddle():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                quit()
+                sys.exit()
 
             # Allows user to move paddle up and down
             if event.type == pygame.KEYDOWN:
