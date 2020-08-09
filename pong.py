@@ -3,6 +3,8 @@ fix function order
 polish comments?
 major fixups required
 fixup text display functions
+better collision detection
+deal with globals
 '''
 
 import sys
@@ -15,13 +17,16 @@ pygame.init()
 DISPLAY_WIDTH = 800
 DISPLAY_HEIGHT = 600
 
+# Colours
+BLACK = (0, 0, 0)
+GREEN = (0, 255, 0)
+TEAL = (0, 100, 100)
 WHITE = (255, 255, 255)
 YELLOW = (255, 255, 0)
-BALL_COLOUR = (255, 255, 255)
-PADDLE_COLOUR = (255, 255, 255)
-BACKROUND_MAINMENU_COLOUR = (0, 100, 100)
-GREEN = (0, 255, 0)
-BLACK = (0, 0, 0)
+
+# Object colours
+BALL_COLOUR = WHITE
+PADDLE_COLOUR = WHITE
 
 # Paddle dimensions
 PADDLE_HEIGHT = 150
@@ -92,7 +97,7 @@ def main():
                         sys.exit()
 
         # Main menu user interface
-        gameDisplay.fill(BACKROUND_MAINMENU_COLOUR)
+        gameDisplay.fill(TEAL)
         title = text_format("Pong - Main Menu", 'freesansbold.ttf', 80, WHITE)
         win_rules = text_format("Get 15 points to win. Each time the ball hits the paddle, it gets harder", 'freesansbold.ttf', 20, YELLOW)
         general_rules = text_format("Press right and left to choose. When 'QUIT' or 'START' is green, press enter.", 'freesansbold.ttf', 20, YELLOW)
