@@ -2,8 +2,8 @@
 A simple singleplayer pong game made with pygame where the player bounces a ball off a wall.
 
 ### Setup
-Once downloaded, double click `run.bat` to start the program.  
-All necessary libraries will be installed in a virtual environment.  
+Once downloaded, double click `run.bat` to start the program.\
+All necessary libraries will be installed in a virtual environment.
 
 ### Todo
 - Fix function order
